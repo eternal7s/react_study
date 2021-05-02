@@ -1,24 +1,27 @@
-import React, { useState } from "react";
-import axios from 'axios';
+import React, {useState, useCallback} from "react";
+import { Route } from 'react-router-dom';
+import NewsPage from './pages/NewsPage';
 
 const App = () => {
-  const [data, setData] = useState(null);
-  const onClick = async () => {
-    try {
-      const response = await axios.get('http://jsonplaceholder.typicode.com/todos/10');
-      setData(response.data);
-    } catch (e) {
-      console.log(e)
-    }
-  };
-  return(
-    <div>
-      <div>
-        <button onClick={onClick}>불러오기</button>
-      </div>
-      {data && <textarea rows={7} value={JSON.stringify(data, null, 2)} readOnly={true} /> }
-    </div>
+  return <Route path={"/:category?"} component={NewsPage} />;
+};
+
+
+/*
+const App = () => {
+  const [category, setCategory] = useState('all');
+  const onSelect = useCallback(category => {
+    setCategory(category);
+    console.log('선택카테고리: ', category)
+  }, []);
+
+  return (
+    <>
+      <Categories category={category} onSelect={onSelect}/>
+      <NewsList category={category}/>
+    </>
   );
 };
+*/
 
 export default App;
